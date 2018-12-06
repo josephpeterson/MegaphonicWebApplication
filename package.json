@@ -1,0 +1,36 @@
+{
+  "name": "mega",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
+    "fullcalendar": "^3.9.0",
+    "jquery": "^3.3.1",
+    "oidc-client": "^1.5.4",
+    "popper.js": "^1.14.5",
+    "react": "^16.6.3",
+    "react-audio-player": "^0.11.0",
+    "react-dom": "^16.6.3",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.1",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.83.0"
+  },
+  "scripts": {
+    "start": "cp \"src/config.dev.js\" \"src/config.js\";react-scripts start",
+    "build": "cp \"src/config.dev.js\" \"src/config.js\";react-scripts build",
+    "build-prod": "cp \"src/config.prod.js\" \"src/config.js\"; react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

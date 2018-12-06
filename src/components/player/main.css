@@ -1,0 +1,137 @@
+/* Music Player */
+.musicPlayer
+{
+	position: fixed;	
+	z-index:5;
+	bottom:20px;
+	left:0px;
+	height:100px;
+	width:100%;
+}
+.musicPlayer .player
+{
+	user-select: none;
+	-moz-user-select: none;
+
+	position: relative;
+	margin-left:auto;
+	margin-right:auto;
+	width:70%;
+	height:100%;
+	background-color:#CCC;
+	border:1px solid #a4a4a4;
+	box-shadow:0px 0px 3px 3px rgba(140,140,140,0.7);
+}
+.musicPlayer .player .icon
+{
+	height:100px;
+	width:100px;
+	float:left;
+
+	background-image:url(./icons/default.png);
+	background-position: center center;
+	background-size: cover;
+}
+.musicPlayer .player .top
+{
+	position:absolute;
+	top:0px;
+	left:100px;
+	right:0px;
+	width:auto;
+}
+.musicPlayer .player .top h1
+{
+	font-weight: bold;
+	font-size:16pt;
+	text-indent: 10px;
+}
+.musicPlayer .player .top .options
+{
+	float:right;
+	display: block;
+	width:30px;
+	height:30px;
+	padding:5px;
+
+	background-image:url(/assets/icons/settings.png);
+	background-position: center center;
+	background-clip: content-box;
+	background-size: 60% 60%;
+	background-repeat: no-repeat
+}
+.musicPlayer .player .top .controls
+{
+	float:left;
+}
+.musicPlayer .player .top .controls span
+{
+	float:right;
+	display: block;
+	width:60px;
+	height:60px;
+	padding:5px;
+
+	background-image:url(./icons/settings.png);
+	background-position: center center;
+	background-size: 60% 60%;
+	background-repeat: no-repeat;
+}
+.musicPlayer .player .top .controls span.back
+{
+	background-image:url(./icons/back.png);
+}
+.musicPlayer .player .top .controls span.play
+{
+	background-image:url(./icons/play.png);
+}
+.musicPlayer .player .top .controls span.play.paused
+{
+	background-image:url(./icons/pause.png);
+}
+.musicPlayer .player .top .controls span.forward
+{
+	background-image:url(./icons/forward.png);
+}
+.musicPlayer .player .timeline
+{
+	position:absolute;
+	left:150px;
+	right:50px;
+	bottom:20px;
+	height:5px;
+
+	background-color:rgb(232,224,227);
+}
+.musicPlayer .player .timeline .duration
+{
+	position: absolute;
+	top:-5px;
+	left:-40px;
+	display: block;
+
+	color:rgb(142,79,159);
+	font-size:10pt;
+}
+.musicPlayer .player .timeline .duration.end
+{
+	left:auto;
+	right:-40px;
+}
+.musicPlayer .player .timeline .thumb
+{
+	position: absolute;
+	top:-7px;
+	left:-7px;
+	left:50%;
+
+	height:20px;
+	width:20px;
+	border-radius:50px;
+
+	background-color:rgb(142,79,159);
+}
+.musicPlayer .player .timeline .thumb:hover
+{
+	box-shadow: 0px 0px 5px 2px white;
+}

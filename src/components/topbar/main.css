@@ -1,0 +1,42 @@
+
+.profileBadge
+{
+	position: absolute;
+	border:2px solid #EFEFFF;
+	border-radius:200px;
+	height:30px;
+	width:30px;
+	left:0px;
+	top:5px;
+	float:left;
+
+	background-image:url(/img/profile_default.png);
+	background-position: center center;
+	background-size: cover;
+}
+.profileIcon
+{
+	text-indent: 20px;
+	position: relative;
+}
+.navbar-toggler-icon
+{
+	width:30px;
+	height:30px;
+	background-color:red;
+}
+
+nav {
+	background-color:rgb(77,83,163);
+	flex-wrap: nowrap !important;
+}
+nav a {
+	color:rgb(235,235,235);
+}
+nav a:hover {
+	color:rgb(150,150,150);
+}
+.top.container
+{
+	height:56px;
+}
