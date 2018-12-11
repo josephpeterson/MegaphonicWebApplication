@@ -53,8 +53,10 @@ class App extends Component {
               </Switch>
           )}
           {Authenticated && (
-            <div className="container">
-              <Topbar auth={auth}/>
+            <div className="container" style={{
+              "margin-bottom": "160px"
+            }}>
+              <Route path="/" render={(props) => <Topbar auth={auth} {...props} />} />
               <Switch>
                 <Route path="/artist" render={(props) => <Artist auth={auth} {...props} />} />
                 <Route path="/settings" render={(props) => <Settings auth={auth} {...props} />} />

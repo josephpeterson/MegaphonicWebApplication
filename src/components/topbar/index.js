@@ -32,12 +32,8 @@ class Topbar extends Component {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-              <Link to='/explore' className="nav-link">Explore</Link>
-              </li>
-              <li className="nav-item">
-                <Link to='/calendar' className="nav-link">Calendar</Link>
-              </li>
+              <NavLink parent={this} to="/explore" title="Explore" location={this.props.location}/>
+              <NavLink parent={this} to="/calendar" title="Calendar" location={this.props.location}/>
               <li className="nav-item">
                 <a className="nav-link disabled" href="#">Playlists</a>
               </li>
@@ -62,5 +58,26 @@ class Topbar extends Component {
     );
   }
 }
-
+class NavLink extends Component {
+  constructor(props) {
+    super(props);
+    this.title = props.title;
+    this.to = props.to;
+  }
+  render() {
+    var active = this.props.location.pathname === this.to;
+    var c = "nav-item " + (active ? "active":"");
+    return (<li className={c}>
+      <Link to={this.to} className="nav-link" onClick={this.onClick.bind(this)}>{this.title}</Link>
+    </li>);
+  }
+  onClick() {
+    var parent = this.props.parent;
+    parent.setState({
+      location: {
+        pathname: this.to
+      }
+    });
+  }
+}
 export default Topbar;
