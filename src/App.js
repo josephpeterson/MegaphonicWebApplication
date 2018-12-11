@@ -27,9 +27,12 @@ var history = createHistory();
 const auth = new Auth();
 
 const handleAuthentication = ({ location }) => {
-  if (/access_token|id_token|error/.test(location.hash)) {
-    auth.handleAuthentication();
-  }
+
+  //Check if we have a token
+  //?t=TOKEN
+  var token = location.search.substring(3);
+  if(token)
+    auth.handleAuthentication(token);
 }
 
 

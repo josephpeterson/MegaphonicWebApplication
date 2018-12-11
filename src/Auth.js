@@ -1,14 +1,12 @@
 // Copyright (c) Megaphonic LLC 2018. All rights reserved.
 // Joseph Peterson
 import { Configuration } from './config';
-import oidc from 'oidc-client';
+import $ from 'jquery';
 
 
 //History (todo: remove this one day)
 import createHistory from 'history/createBrowserHistory'
 var history = createHistory();
-
-var mgr = new oidc.UserManager(Configuration.auth);
 
 export default class Auth {
 
@@ -16,35 +14,34 @@ export default class Auth {
     this.history = history;
   }
   login() {
-    var attempt = mgr.signinRedirect();
-    return attempt;
+    //Redirect to login
+    window.location = Configuration.auth.authority + "/login/" + encodeURIComponent("callback");
+  }
+  parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
   }
 
   logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
-    mgr.signoutRedirect();
-    // Clear access token and ID token from local storage
-
-    // navigate to the home route
-    //window.location = "/";
+    
+    //TODO: delete cookies, tell server we logged out
+    window.location = "/";
   }
 
-  handleAuthentication() {
-    var t = this;
-    new oidc.UserManager().signinRedirectCallback().then(function (authResult) {
-      t.setSession(authResult);
-    }).catch(function (e) {
-      console.error(e);
-    });
+  handleAuthentication(token) {
+    this.setSession(token);
   }
 
-  setSession(authResult) {
+  setSession(token) {
+    var jwt = this.parseJwt(token);
     // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((authResult.expires_in * 1000) + new Date().getTime());
-    localStorage.setItem('access_token', authResult.access_token);
-    localStorage.setItem('id_token', authResult.id_token);
+    let expiresAt = JSON.stringify((jwt.exp * 1000) + new Date().getTime());
+    localStorage.setItem('jwtToken', token);
+    localStorage.setItem('unique_name', jwt.unique_name);
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
     window.location = "/";
@@ -53,7 +50,24 @@ export default class Auth {
   isAuthenticated() {
     // Check whether the current time is past the 
     // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    if(!localStorage.getItem("jwtToken"))
+      return false;
+    let expiresAt = JSON.parse(localStorage.getItem('expires_at') * 1000);
     return new Date().getTime() < expiresAt;
+  }
+
+  api(service,req) {
+    var url = Configuration.services[service] + "/" + req;
+    return $.ajax({
+      url:  url,
+      type: 'GET',
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", "BEARER " + localStorage.getItem("jwtToken"));
+      },
+      success: function (response) {
+          alert("Success");
+          console.log(response);
+      }
+  });
   }
 }

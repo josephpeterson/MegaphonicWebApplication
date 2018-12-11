@@ -18,7 +18,7 @@ class RegisterSection extends Component {
 						</div>
 					</div>
 
-					<div className="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div className="modal fade" id="t_and_c_m" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div className="modal-dialog modal-lg">
 							<div className="modal-content">
 								<div className="modal-header">
@@ -55,37 +55,37 @@ class RegisterForm extends Component {
 			<div className="row">
 				<div className="col-xs-12 col-sm-6 col-md-6">
 					<div className="form-group">
-						<input type="text" name="First" id="first_name" className="form-control input-lg" placeholder="First Name" tabindex="1" />
+						<input type="text" name="First" id="first_name" className="form-control input-lg" placeholder="First Name" tabIndex="1" />
 					</div>
 				</div>
 				<div className="col-xs-12 col-sm-6 col-md-6">
 					<div className="form-group">
-						<input type="text" name="Last" id="last_name" className="form-control input-lg" placeholder="Last Name" tabindex="2" />
+						<input type="text" name="Last" id="last_name" className="form-control input-lg" placeholder="Last Name" tabIndex="2" />
 					</div>
 				</div>
 			</div>
 			<div className="form-group">
-				<input type="text" name="Username" id="display_name" className="form-control input-lg" placeholder="Display Name" tabindex="3" />
+				<input type="text" name="Username" id="display_name" className="form-control input-lg" placeholder="Display Name" tabIndex="3" />
 			</div>
 			<div className="form-group">
-				<input type="email" name="Email" id="email" className="form-control input-lg" placeholder="Email Address" tabindex="4" />
+				<input type="email" name="Email" id="email" className="form-control input-lg" placeholder="Email Address" tabIndex="4" />
 			</div>
 			<div className="row">
 				<div className="col-xs-12 col-sm-6 col-md-6">
 					<div className="form-group">
-						<input type="password" name="Password" id="password" className="form-control input-lg" placeholder="Password" tabindex="5" />
+						<input type="password" name="Password" id="password" className="form-control input-lg" placeholder="Password" tabIndex="5" />
 					</div>
 				</div>
 				<div className="col-xs-12 col-sm-6 col-md-6">
 					<div className="form-group">
-						<input type="password" name="PasswordConfirm" id="password_confirmation" className="form-control input-lg" placeholder="Confirm Password" tabindex="6" />
+						<input type="password" name="PasswordConfirm" id="password_confirmation" className="form-control input-lg" placeholder="Confirm Password" tabIndex="6" />
 					</div>
 				</div>
 			</div>
 			<div className="row">
 				<div className="col-xs-4 col-sm-3 col-md-3">
 					<span className="button-checkbox">
-						<button type="button" className="btn" data-color="info" tabindex="7">I Agree</button>
+						<button type="button" className="btn" data-color="info" tabIndex="7">I Agree</button>
 						<input type="checkbox" name="t_and_c" id="t_and_c" className="hidden" value="1" />
 					</span>
 				</div>
@@ -96,7 +96,7 @@ class RegisterForm extends Component {
 
 			<hr className="colorgraph" />
 			<div className="row">
-				<div className="col-xs-12 col-md-6"><input type="submit" name="button" value="signup" className="btn btn-primary btn-block btn-lg" tabindex="7" /></div>
+				<div className="col-xs-12 col-md-6"><input type="submit" name="button" value="signup" className="btn btn-primary btn-block btn-lg" tabIndex="7" /></div>
 				<div className="col-xs-12 col-md-6"><a onClick={this.props.btn_login} className="btn btn-success btn-block btn-lg">Login</a></div>
 			</div>
 		</form>

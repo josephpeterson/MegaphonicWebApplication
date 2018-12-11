@@ -10,21 +10,25 @@ class Home extends Component {
   logout() {
     this.props.auth.logout();
   }
-    render() {
-      var logged = this.props.auth.isAuthenticated();
-      return (
-        <div>
-          <div className='card'>
+  render() {
+    var logged = this.props.auth.isAuthenticated();
+    return (
+      <div>
+        <div className='card'>
           <div className='card-body'>
             Welcome to Megaphonic. This is the dashboard page. Still under construction.
-            <br/>
-            <hr/>
-            Login status: {logged ? "Logged In":"Unauthorized"}
-          </div>
+            <br />
+            <hr />
+            Login status: {logged ? "Logged In" : "Unauthorized"}
+            <button onClick={this.test.bind(this)}>Test MegaphonicAPI</button>
           </div>
         </div>
-      );
-    }
+      </div>
+    );
   }
-  
-  export default Home;
+  test() {
+    this.props.auth.api("api","user")
+  }
+}
+
+export default Home;

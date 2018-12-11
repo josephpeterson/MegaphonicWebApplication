@@ -6,5 +6,8 @@ export const Configuration = {
     response_type: "id_token token",
     scope: "openid profile email office",
     post_logout_redirect_uri: "http://3.16.48.81/",
+  },
+  services: {
+    api: "http://3.16.48.81/api"
   }
 }
