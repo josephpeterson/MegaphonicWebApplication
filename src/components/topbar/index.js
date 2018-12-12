@@ -6,8 +6,12 @@ import './main.css';
 
 class ProfileIcon extends Component {
   render() {
+    var profilePicture = `url('${this.props.src}')`;
     return (
-        <Link className="nav-link profileIcon" to='/me' >Profile<span className='profileBadge'></span></Link>
+      <div className='profileBadge' style={{
+        backgroundImage: profilePicture
+      }}>
+      </div>
     );
   }
 }
@@ -17,9 +21,13 @@ class Topbar extends Component {
     this.props.auth.logout();
   }
   render() {
+    var user = this.props.MegaUser;
+    var path = this.props.location.pathname;
+    var location = this.props.location;
+
     return (
-      <div className="top container">
-        <nav className="navbar fixed-top navbar-toggleable-md navbar-dark bg-dark">
+      <div id="topbar" className="container">
+        <nav className="navbar fixed-top navbar-toggleable-md navbar-dark">
           <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -27,13 +35,17 @@ class Topbar extends Component {
             <img src="logo.png" width="30" height="30" alt="" />
           </Link>
           <Link className="navbar-brand" to='/'>
-            Megaphonic <span className="sr-only">(current)</span>
+            Megaphonic
           </Link>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
-              <NavLink parent={this} to="/explore" title="Explore" location={this.props.location}/>
-              <NavLink parent={this} to="/calendar" title="Calendar" location={this.props.location}/>
+              <li className='nav-item'>
+                <NavLink location={location} to="/explore">Explore</NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink location={location} to="/calendar">Calendar</NavLink>
+              </li>
               <li className="nav-item">
                 <a className="nav-link disabled" href="#">Playlists</a>
               </li>
@@ -44,13 +56,16 @@ class Topbar extends Component {
                 <a className="nav-link disabled" href="#">Connect</a>
               </li>
             </ul>
-            <div className='d-flex justify-content-end'>
-              <ProfileIcon/>
-              <button className='btn-danger' onClick={this.logout.bind(this)}>Logout</button>)
+            <div className='navbar-nav float-right'>
               <form className="form-inline my-2 my-lg-0 w-100">
                 <input className="form-control mr-sm-2" type="text" placeholder="Search" />
-                <button className="btn btn-primary" type="submit">Search</button>
+                <button className="btn btn-warning mr-3" type="submit">Search</button>
               </form>
+              <NavLink location={location} to="/me" className='profileItem'>
+                <ProfileIcon src={user.ProfilePicture} text=""/>
+                {user.FirstName + " " + user.LastName}
+              </NavLink>
+              <button className='btn-danger' onClick={this.logout.bind(this)}>Logout</button>
             </div>
           </div>
         </nav>
@@ -59,25 +74,15 @@ class Topbar extends Component {
   }
 }
 class NavLink extends Component {
-  constructor(props) {
-    super(props);
-    this.title = props.title;
-    this.to = props.to;
-  }
   render() {
-    var active = this.props.location.pathname === this.to;
-    var c = "nav-item " + (active ? "active":"");
-    return (<li className={c}>
-      <Link to={this.to} className="nav-link" onClick={this.onClick.bind(this)}>{this.title}</Link>
-    </li>);
-  }
-  onClick() {
-    var parent = this.props.parent;
-    parent.setState({
-      location: {
-        pathname: this.to
-      }
-    });
+    var location = this.props.location;
+    var to = this.props.to;
+
+    var active = location.pathname == to;
+    var c = this.props.className + " nav-link " + (active ? "active" : "");
+
+    return (<Link to={to} className={c}>{this.props.children}</Link>)
+      ;
   }
 }
 export default Topbar;

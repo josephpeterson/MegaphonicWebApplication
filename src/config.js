@@ -1,13 +1,13 @@
 export const Configuration = {
   auth: {
-    authority: "http://3.16.48.81/auth",
+    authority: "https://localhost:5001",
     client_id: "client",
-    redirect_uri: "http://3.16.48.81/callback",
+    redirect_uri: "http://localhost:3000/callback",
     response_type: "id_token token",
     scope: "openid profile email office",
-    post_logout_redirect_uri: "http://3.16.48.81/",
+    post_logout_redirect_uri: "http://localhost:3000/",
   },
   services: {
-    api: "http://3.16.48.81/api"
+    api: "https://localhost:6001"
   }
 }

@@ -14,29 +14,22 @@ import ContactSection from "./components/ContactSection";
 import TopBar from "./components/topbar";
 import RegisterSection from './components/RegisterSection';
 
+
 class LandingPage extends Component {
   LandingPage() {
     //this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleLogin() {
-    var auth = this.props.auth;
-    auth.login().catch(e => {
-
-      alert("Error connecting to Megaphonic Authorization Service");
-      //$("#AuthErrorModal").show();
-    });
-  }
   componentDidMount() {
     CreateStuff();
+    this.props.history.replace("/");
   }
   render() {
     var auth = this.props.auth;
-    auth.history.replace("/"); //todo get history out of this
     return (
       <div>
         <AuthError id="AuthErrorModal"/>
-        <TopBar handleLogin={this.handleLogin.bind(this)}/>
+        <TopBar handleLogin={auth.login.bind(auth)}/>
         <header className="masthead">
           <div className="row h-100 align-items-center">
             <div className="mx-auto text-center">
@@ -47,7 +40,7 @@ class LandingPage extends Component {
         </header>
 
 
-        <RegisterSection btn_login={this.handleLogin.bind(this)}/>
+        <RegisterSection btn_login={auth.login.bind(auth)}/>
         <AboutSection/>
         
 

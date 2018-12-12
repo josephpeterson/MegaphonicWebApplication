@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Configuration } from "../../../config";
+import { Configuration } from "../../config";
 
 class RegisterSection extends Component {
 

@@ -8,6 +8,6 @@ export const Configuration = {
     post_logout_redirect_uri: "http://localhost:3000/",
   },
   services: {
-    api: "http://localhost:6001"
+    api: "https://localhost:6001"
   }
 }

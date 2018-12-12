@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import loading from './loading.svg';
+import Watermark from './watermark.jpg';
 
-class Auth0Callback extends Component {
+class CallbackLoadingPage extends Component {
   render() {
     const style = {
       position: 'absolute',
@@ -13,7 +14,7 @@ class Auth0Callback extends Component {
       bottom: 0,
       left: 0,
       right: 0,
-      backgroundColor: 'white',
+      backgroundColor: 'white'
     }
 
     return (
@@ -24,4 +25,4 @@ class Auth0Callback extends Component {
   }
 }
 
-export default Auth0Callback;
+export default CallbackLoadingPage;
