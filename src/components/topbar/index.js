@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './main.css';
+import $ from 'jquery';
 
 class ProfileIcon extends Component {
   render() {
@@ -17,6 +18,11 @@ class ProfileIcon extends Component {
 }
 
 class Topbar extends Component {
+  constructor(props)
+  {
+    super(props);
+    this.searchQuery = React.createRef();
+  }
   logout() {
     this.props.auth.logout();
   }
@@ -57,9 +63,9 @@ class Topbar extends Component {
               </li>
             </ul>
             <div className='navbar-nav float-right'>
-              <form className="form-inline my-2 my-lg-0 w-100">
-                <input className="form-control mr-sm-2" type="text" placeholder="Search" />
-                <button className="btn btn-warning mr-3" type="submit">Search</button>
+              <form ref={this.searchQuery} className="form-inline my-2 my-lg-0 w-100">
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" name="q"/>
+                <button onClick={this.search.bind(this)} className="btn btn-warning mr-3" type="submit" >Search</button>
               </form>
               <NavLink location={location} to="/me" className='profileItem'>
                 <ProfileIcon src={user.ProfilePicture} text=""/>
@@ -71,6 +77,13 @@ class Topbar extends Component {
         </nav>
       </div>
     );
+  }
+
+  search(event)
+  {
+    event.preventDefault();
+    var q = $(this.searchQuery.current).serialize().substring(2);
+    this.props.history.push(`/explore/${q}`);
   }
 }
 class NavLink extends Component {

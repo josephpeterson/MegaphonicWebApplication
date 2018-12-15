@@ -14,10 +14,7 @@ export default class Auth {
     return JSON.parse(window.atob(base64));
   }
   logout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
-    
+    this.unset();
     //TODO: delete cookies, tell server we logged out
     window.location = "/";
   }
@@ -30,6 +27,11 @@ export default class Auth {
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
     window.location = "/";
+  }
+  unset() {
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('unique_name');
+    localStorage.removeItem('expires_at');
   }
   isAuthenticated() {
     // Check whether the current time is past the 

@@ -36,7 +36,7 @@ class App extends Component {
               <Route path="/settings" render={(props) => <Settings auth={auth} {...props} />} />
               <Route path="/me" render={(props) => <MegaProfile auth={auth} MegaUser={user} {...props} />} />
               <Route path="/calendar" render={(props) => <MyCalendar auth={auth} {...props} />} />
-              <Route path="/explore" render={(props) => <ExplorePage auth={auth} {...props} />} />
+              <Route path="/explore/:q" render={(props) => <ExplorePage auth={auth} {...props} />} />
               <Route render={(props) => <Home MegaUser={user} auth={auth} {...props} />} />
             </Switch>
             <Player />

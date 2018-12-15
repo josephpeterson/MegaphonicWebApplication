@@ -18,8 +18,7 @@ var history = createHistory();
 
 const auth = new Auth();
 
-const handleAuthentication = ({ location }) => {
-
+const handleAuthentication = ({location}) => {
   //Check if we have a token
   //?t=TOKEN
   var token = location.search.substring(3);
@@ -56,6 +55,8 @@ if(HasToken)
         );
     }).fail(data => {
         //Redirect to login
+        console.error("Api call failed");
+        auth.unset();
         auth.login();
     });
 }
