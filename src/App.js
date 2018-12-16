@@ -1,7 +1,7 @@
 // Copyright (c) Megaphonic LLC 2018. All rights reserved.
 // Joseph Peterson
 import React, { Component } from 'react';
-import { Route, Router, Switch } from 'react-router-dom';
+import { Route, Router, Switch, Redirect } from 'react-router-dom';
 
 //Components
 import Sidebar from './components/sidebar';
@@ -34,9 +34,12 @@ class App extends Component {
             <Switch>
               <Route path="/artist" render={(props) => <Artist auth={auth} {...props} />} />
               <Route path="/settings" render={(props) => <Settings auth={auth} {...props} />} />
-              <Route path="/me" render={(props) => <MegaProfile auth={auth} MegaUser={user} {...props} />} />
+              <Route path="/p/:id?" render={(props) => <MegaProfile auth={auth} MegaUser={user} {...props} />} />
+              <Route path="/me">
+					      <Redirect to={"/p/" + user.Username}/>
+              </Route>
               <Route path="/calendar" render={(props) => <MyCalendar auth={auth} {...props} />} />
-              <Route path="/explore/:q" render={(props) => <ExplorePage auth={auth} {...props} />} />
+              <Route path="/explore/:q?" render={(props) => <ExplorePage auth={auth} {...props} />} />
               <Route render={(props) => <Home MegaUser={user} auth={auth} {...props} />} />
             </Switch>
             <Player />

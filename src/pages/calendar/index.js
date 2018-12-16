@@ -7,7 +7,10 @@ import $ from 'jquery';
 class MyCalendar extends Component {
 	render() {
 		return (
+			<div className="container p-5">
 			<Calendar />
+ 			
+			</div>
 		);
 	}
 }

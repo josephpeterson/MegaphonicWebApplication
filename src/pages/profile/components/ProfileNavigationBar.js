@@ -27,12 +27,12 @@ class ProfileNavigationBar extends Component {
 		super(props);
 	}
 	render() {
-		var user = this.props.MegaUser;
+		var user = this.props.ProfileUser;
 		var path = this.props.path;
+		var prefix = "/p/" + user.Username + "/";
 		var Artist = this.props.Artist;
 		var Me = this.props.Me;
 		var history = this.props.history;
-
 		var tabs = [];
 
 		//Add artist tabs first
@@ -47,7 +47,7 @@ class ProfileNavigationBar extends Component {
 			tabs = tabs.concat(PersonalTabs);
 
 
-		var activeTab = tabs.find(t => "/me/" + t.path == this.props.path);
+		var activeTab = tabs.find(t => prefix + t.path == path);
 		if (!activeTab)
 			activeTab = tabs[0];
 
@@ -58,7 +58,7 @@ class ProfileNavigationBar extends Component {
 						if (!tab.title || (!Artist && tab.artistOnly))
 							return;
 						return (<li key={i} className="nav-item">
-							<Link to={"/me/" + tab.path} className={"nav-link " + (activeTab == tab ? "active" : "")}>{tab.title}</Link>
+							<Link to={prefix + tab.path} className={"nav-link " + (activeTab == tab ? "active" : "")}>{tab.title}</Link>
 						</li>)
 					}
 					)}
@@ -69,11 +69,11 @@ class ProfileNavigationBar extends Component {
 					{tabs.map((tab, i) => {
 						if ((!Artist && tab.artistOnly))
 							return;
-						return(<Route key={i} exact path={"/me/" + (i > 0 ? tab.path:"")} render={(props) =>
+						return(<Route key={i} exact path={prefix + (i > 0 ? tab.path:"")} render={(props) =>
 							(<tab.component history={history} MegaUser={user} />)
 						} />)
 					})}
-					<Redirect to="/me/" />
+					<Redirect to={prefix} />
 				</Switch>
 			</div>
 		</div>);
