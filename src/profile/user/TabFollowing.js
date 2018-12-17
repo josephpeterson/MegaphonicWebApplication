@@ -21,6 +21,7 @@ class TabFollowing extends Component {
 				<img className="" src="/img/loading.svg"/>
 			</div>;
 		}
+		var history = this.props.history;
 		var followers = this.state.followers;
 		var count = followers.length;
 		if (count == 0) {
@@ -37,8 +38,11 @@ class TabFollowing extends Component {
 			<div className="">
 				{followers.map((follower, id) => {
 					var href = "/a/" + follower.Username;
+					var User = follower.Artist;
+					var Relationship = follower.Relationship;
+					var MyRelationship = follower._Relationship;
 					return (
-						<ProfileCard key={id} ProfileUser={follower}/>
+						<ProfileCard key={id} history={history} ProfileUser={User} Relationship={MyRelationship}/>
 					)
 				}
 				)}

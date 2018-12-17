@@ -90,11 +90,14 @@ class ProfileHeaderInfo extends Component {
 		
 		return (
 			<div className='profileHeader artist'>
+				<div className="profileContent">
 				<h4>{User.Title}</h4>
 				<h6>{location}</h6>
 				<div className="row">
 				<p className="col-sm biography">{biography}</p>				
 				</div>
+				</div>
+	
 				<div className="btn-grp">
 					{relationshipBtn}
 					<button className="btn btn-info m-2">Donate</button> 

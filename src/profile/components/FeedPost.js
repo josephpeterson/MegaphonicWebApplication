@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
+
 class FeedPost extends Component {
 	render() {
+		const {Title, Content, ProfileUser} = this.props;
+
+		var FullName = ProfileUser.FirstName + " " + ProfileUser.LastName;
+
+		var href = "/p/" + ProfileUser.Username;
+
 		return (
-			<div className="row">
-				<div className="card">
+				<div className="card m-4 FeedPost">
+						<h6 className="card-header Title">{Title}</h6>
+
 					<div className="card-body">
-						<h5 className="card-title">Card title</h5>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quid de Pythagora? An eiusdem modi? Quippe: habes enim a rhetoribus;
-		Cur iustitia laudatur? Torquatus, is qui consul cum Cn. Id est enim, de quo quaerimus.
-		Quis enim redargueret? Duo Reges: constructio interrete. Nihilo beatiorem esse Metellum quam Regulum. Ostendit pedes et pectus. Quae quidem sapientes sequuntur duce natura tamquam videntes; Id Sextilius factum negabat.
-						</p>
-						<a href="#" className="btn btn-primary m-2">Like</a>
-						<a href="#" className="btn btn-primary m-2">Share</a>
+						<Link to={href} className="Icon" style={{
+							backgroundImage: ProfileUser.ProfilePicture ? `url('${ProfileUser.ProfilePicture}')`:""
+						}}>
+					
+						</Link>
+						<p>{Content}</p>
+						<a href="#" className="btn btn-default m-2">Like</a>
+						<a href="#" className="btn btn-default m-2">Share</a>
 					</div>
 				</div>
-			</div>
 		)
 	}
 }

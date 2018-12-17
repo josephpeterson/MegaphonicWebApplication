@@ -7,6 +7,7 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 	
+	
 }
 .profilePortrait {
 	position: relative;
@@ -26,7 +27,12 @@
 }
 .profileHeader {
 	text-indent:15px;
-	color:rgb(80, 64, 95);
+	
+}
+.profileHeader .profileContent
+{
+	color:white;
+	mix-blend-mode: difference;
 }
 .gearEditBtn
 {
@@ -109,4 +115,29 @@
 .ProfileCard card-body
 {
 	float:left;
+}
+.biography
+{
+
+}
+
+.FeedPost .Title {
+	text-indent: 30px;
+	font-weight: bold;
+}
+.FeedPost .Icon
+{
+	position: absolute;
+	border:2px solid #8d8d8d;
+	border-radius:200px;
+	height:60px;
+	width:60px;
+	margin:2px;
+	left:-20px;
+	top:-10px;
+	float:left;
+
+	background-image:url(/img/profile_default.jpg);
+	background-position: center center;
+	background-size: cover;
 }
