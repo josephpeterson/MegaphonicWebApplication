@@ -18,10 +18,10 @@ class ProfileIcon extends Component {
 }
 
 class Topbar extends Component {
-  constructor(props)
-  {
+  constructor(props) {
     super(props);
     this.searchQuery = React.createRef();
+    this.dropdownMenu = React.createRef();
   }
   logout() {
     this.props.auth.logout();
@@ -31,9 +31,11 @@ class Topbar extends Component {
     var path = this.props.location.pathname;
     var location = this.props.location;
 
+    var href_profile = "/p/" + user.Username;
+
     return (
       <div id="topbar" className="container">
-        <nav className="navbar fixed-top navbar-toggleable-md navbar-dark">
+        <nav className="navbar navbar-expand-lg fixed-top navbar-dark">
           <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -64,14 +66,29 @@ class Topbar extends Component {
             </ul>
             <div className='navbar-nav float-right'>
               <form ref={this.searchQuery} className="form-inline my-2 my-lg-0 w-100">
-                <input className="form-control mr-sm-2" type="text" placeholder="Search" name="q"/>
+                <input className="form-control mr-sm-2" type="text" placeholder="Search" name="q" />
                 <button onClick={this.search.bind(this)} className="btn btn-warning mr-3" type="submit" >Search</button>
               </form>
-              <NavLink location={location} to="/me" className='profileItem'>
-                <ProfileIcon src={user.ProfilePicture} text=""/>
+              <NavLink location={location} to={href_profile} className='profileItem'>
+                <ProfileIcon src={user.ProfilePicture} text="" />
                 {user.FirstName + " " + user.LastName}
               </NavLink>
-              <button className='btn-danger' onClick={this.logout.bind(this)}>Logout</button>
+              <div className="nav-item dropdown" style={{
+                whiteSpace: "nowrap"
+              }}>
+                <a onClick={this.toggleDropdown.bind(this)} className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Settings
+                </a>
+                <div ref={this.dropdownMenu} className="dropdown-menu-right dropdown-menu" aria-labelledby="navbarDropdown">
+                  <Link to={href_profile + "/edit"} className="dropdown-item">Edit Profile</Link>
+                  <a className="dropdown-item" href="#">Help Center</a>
+                  <div className="dropdown-divider"></div>
+                  <a className="dropdown-item" href="#">About</a>
+                  <a className="dropdown-item" href="#">Report a bug</a>
+                  <a className="dropdown-item" href="#">View Changelog</a>
+                  <a className="dropdown-item" onClick={this.logout.bind(this)}>Logout</a>
+                </div>
+              </div>
             </div>
           </div>
         </nav>
@@ -79,8 +96,20 @@ class Topbar extends Component {
     );
   }
 
-  search(event)
-  {
+  toggleDropdown() {
+    var menu = this.dropdownMenu.current;
+    var open = $(menu).hasClass("show");
+    if (!open) {
+      $(menu).toggleClass("show");
+      var handler = function (event) {
+        //event.preventDefault();
+        $(menu).removeClass("show");
+        $(document.body).unbind("click", handler);
+      }
+      $(document.body).bind("click", handler);
+    }
+  }
+  search(event) {
     event.preventDefault();
     var q = $(this.searchQuery.current).serialize().substring(2);
     this.props.history.push(`/explore/${q}`);
@@ -91,7 +120,7 @@ class NavLink extends Component {
     var location = this.props.location;
     var to = this.props.to;
 
-    var active = location.pathname == to;
+    var active = location.pathname.indexOf(to) != -1;
     var c = this.props.className + " nav-link " + (active ? "active" : "");
 
     return (<Link to={to} className={c}>{this.props.children}</Link>)

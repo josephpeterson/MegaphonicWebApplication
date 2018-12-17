@@ -1,0 +1,112 @@
+.profileBanner {
+	position: relative;
+	overflow: hidden;
+	background-color:#FAFADE;
+	padding:30px;
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	
+}
+.profilePortrait {
+	position: relative;
+	border:4px solid rgb(87, 96, 136);
+	background-image:url(/img/profile_default.png);
+	background-position:center center;
+	background-size:cover;
+	border-radius:4px;
+	background-color:#CDCDCD;
+	height:180px;
+	width:160px;
+	float:left;
+	overflow: hidden;
+	cursor: pointer;
+
+	user-select: none;
+}
+.profileHeader {
+	text-indent:15px;
+	color:rgb(80, 64, 95);
+}
+.gearEditBtn
+{
+	opacity: 0.6;
+	background: none;
+	margin:0px;
+	padding:0px;
+}
+.gearEditBtn:hover {
+	opacity: 1;
+}
+
+.profilePictureChange
+{
+	position: absolute;
+	display: table-cell;
+	padding:10px;
+	background-color:rgba(50,50,50,0.5);
+	color: white;
+	font-size: 10pt;
+
+
+	cursor: pointer;
+
+	-webkit-transition-property: bottom,right;
+  	-webkit-transition-duration: 0.3s;
+}
+.profileBanner .profilePortrait .profilePictureChange
+{
+	border-radius:0px;
+	bottom:-50px;
+	left:0px;
+	right:0px;
+}
+.profileBanner .profilePictureChange
+{
+	bottom:0px;
+	left:auto;
+	width:200px;
+	bottom:15px;
+	right:-200px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+.profileBanner:hover .profilePictureChange
+{
+	right:0px;
+}
+
+.profilePortrait:hover .profilePictureChange {
+	bottom:0px;
+}
+.profilePictureChange img
+{
+	float:left;
+	height:30px;
+}
+.profilePictureChange label
+{
+	cursor: pointer;
+	margin:0px;
+	padding: 0px;
+	text-indent: 8px;
+	line-height: 30px;
+}
+
+.ProfileCard
+{
+
+}
+.ProfileCard img
+{
+	float:left;
+	border:2px solid rgb(87, 96, 136);
+	border-radius:4px;
+	margin-right:10px;
+	height:80px;
+	width:80px;
+}
+.ProfileCard card-body
+{
+	float:left;
+}

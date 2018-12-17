@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import "./main.css";
 import "./vendor/gapi/font1.css";
-import "./vendor/bootstrap.css";
+//import "./vendor/bootstrap.css";
 import CreateStuff from "./js/grayscale";
 import AuthError from "./components/AuthError";
 

@@ -1,0 +1,11 @@
+.inputUserSearch
+{
+
+}
+.inputUserSearch input.loading
+{
+	background-repeat: no-repeat;
+	background-position: right center;
+	background-size: auto 70%;
+	background-image:url('/img/loading.svg');
+}
