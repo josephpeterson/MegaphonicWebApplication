@@ -10,11 +10,8 @@ class ProfileNavigationBar extends Component {
 		var user = this.props.ProfileUser;
 		var path = this.props.path;
 		//TODO: change this logic at some point
-		var prefix;
-		{
-			var url = path.split("/");
-			prefix = "/" + url[1] + "/" + user.Username + "/";
-		}
+		
+		var prefix = this.props.Prefix;
 		var Artist = this.props.Artist;
 		var Me = this.props.Me;
 		var history = this.props.history;

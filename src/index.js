@@ -34,18 +34,7 @@ if (HasToken) {
         document.getElementById('root')
     );
     //Make an api request to our data. If we get data, we're still authorized.
-    mApi.get("api", "user").done(data => {
-        var user;
-        try {
-            user = JSON.parse(data);
-            user = fillProfileDefaults(user);
-        }
-        catch (e) {
-            //Error occured
-            console.error(e);
-            auth.login();
-            return;
-        }
+    mApi.get("api", "user").done(user => {
         ReactDOM.render(
             <Router history={history}>
                 <App history={history} auth={auth} MegaUser={user} />

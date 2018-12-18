@@ -12,7 +12,7 @@ export default class RelationshipButton extends Component {
 		var Relationship = this.props.Relationship;
 
 		this.state = {
-			Status: Relationship.Status
+			Status: Relationship.status
 		}
 		this.btn = React.createRef();
 	}
@@ -44,7 +44,7 @@ export default class RelationshipButton extends Component {
 		var Status = this.state.Status;
 		var history = this.props.history;
 
-		var href = "/a/" + User.Username + "/";
+		var href = "/a/" + User.username + "/";
 		var btn = this.btn.current;
 		btn.disabled = true;
 
@@ -53,10 +53,9 @@ export default class RelationshipButton extends Component {
 		}
 		else {
 			//Toggle following
-			var ArtistId = User.ArtistId;
-
+			var id = User.artistId;
 			var newStatus = (Status == RelationshipStatuses.Minimal ? RelationshipStatuses.None:RelationshipStatuses.Minimal);
-			mApi.post("api", `artist/follow/${ArtistId}`).fail(e => {
+			mApi.post("api", `artist/${id}/follow`).fail(e => {
 				console.error(e);
 				btn.disabled = false;
 			}).done(data => {
@@ -66,6 +65,5 @@ export default class RelationshipButton extends Component {
 				btn.disabled = false;
 			});
 		}
-
 	}
 }

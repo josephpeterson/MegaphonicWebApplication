@@ -3,7 +3,7 @@ import $ from 'jquery';
 import mApi from '../../services/MegaphonicAPI';
 import "./main.css";
 
-class UserDirectory extends Component {
+class UserSearchInput extends Component {
 	constructor(props) {
 		super(props);
 
@@ -38,7 +38,7 @@ class UserDirectory extends Component {
 		}).done(data => {
 			this.setState({
 				loading: false,
-				data: JSON.parse(data)
+				data: data
 			});
 		});
 	}
@@ -50,7 +50,7 @@ class UserDirectory extends Component {
 			this.select(acc);
 	}
 	select(acc) {
-		this.inputSearch.current.value = acc.Username;
+		this.inputSearch.current.value = acc.username;
 		this.setState({
 			loading: false,
 			disabled: true
@@ -73,7 +73,7 @@ class UserDirectory extends Component {
 		var results = [];
 		if (data) {
 			results = data.filter(r => {
-				return this.props.Ignore.indexOf(r.Username) == -1;
+				return this.props.Ignore.indexOf(r.username) == -1;
 			});
 		}
 		return (
@@ -90,7 +90,7 @@ class UserDirectory extends Component {
 							return (
 								<a onClick={(event) => {
 									this.selectOption(event, acc);
-								}} key={i} className="dropdown-item" href="#">{acc.Username}</a>
+								}} key={i} className="dropdown-item" href="#">{acc.username}</a>
 							)
 						})}
 						<h6 className="dropdown-header">{results.length} user{results.length > 1 ? "s" : ""} found</h6>
@@ -100,4 +100,4 @@ class UserDirectory extends Component {
 		);
 	}
 }
-export default UserDirectory;
+export default UserSearchInput;

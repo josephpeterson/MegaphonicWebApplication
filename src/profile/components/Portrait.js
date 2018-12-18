@@ -3,24 +3,15 @@ import PhotoIcon from '../photo.png';
 
 class Portrait extends Component {
 	render() {
-		var src = this.props.ProfileUser.ProfilePicture;
-
-		var editable;
-
-		if(this.props.ProfileUser.AccountId == this.props.MegaUser.AccountId)
-		{
-			editable = (<div className="profilePictureChange">
-				<img src={PhotoIcon} />
-				<label>Change...</label>
-			</div>);
-		}
-
-		if (!src)
-			src = "/img/profile_default.jpg";
+		const { src, Editable } = this.props;
 		return (<div className='profilePortrait' style={{
 			backgroundImage: "url(" + src + ")"
 		}}>
-		{editable}
+			{Editable && (<div className="profilePictureChange">
+				<img src={PhotoIcon} />
+				<label>Change...</label>
+			</div>)
+			}
 		</div>);
 	}
 }

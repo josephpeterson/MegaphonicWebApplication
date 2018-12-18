@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 
 class ProfileHeader extends Component {
   render() {
-    var headerSrc = this.props.ProfileUser.HeaderPicture;
-    if (!headerSrc)
-      headerSrc = "/img/header_default.jpg";
-
+    var headerSrc = this.props.src;
     return (
       <div className='profileBanner' style={
         {

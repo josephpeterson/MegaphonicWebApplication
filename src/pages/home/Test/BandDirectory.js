@@ -62,8 +62,7 @@ class BandDirectory extends Component {
 			);
 		}
 
-		//Parse the data
-		var records = JSON.parse(data);
+		var records = data;
 		return (
 			<div className='card m-3'>
 				<div className='card-body'>
@@ -72,8 +71,8 @@ class BandDirectory extends Component {
 					<div className="container">
 						{records.map((user, id) =>
 							<div key={id} className="row">
-								<a href={"/a/" + user.Username}>
-									{user.Username} ({user.Title})
+								<a href={"/a/" + user.username}>
+									{user.username} ({user.title})
 				  </a>
 							</div>
 						)}

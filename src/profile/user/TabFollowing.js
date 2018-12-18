@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import mApi from '../../services/MegaphonicAPI';
-import ProfileCard from "../components/ProfileCard";
+import ProfileCard from "../../components/Profile/ProfileCard";
 
 class TabFollowing extends Component {
 	constructor(props) {
@@ -37,10 +37,11 @@ class TabFollowing extends Component {
 		return (
 			<div className="">
 				{followers.map((follower, id) => {
-					var href = "/a/" + follower.Username;
-					var User = follower.Artist;
-					var Relationship = follower.Relationship;
+					var href = "/a/" + follower.username;
+					var User = follower.artist;
+					var Relationship = follower.relationship;
 					var MyRelationship = follower._Relationship;
+					console.log(follower);
 					return (
 						<ProfileCard key={id} history={history} ProfileUser={User} Relationship={MyRelationship}/>
 					)
@@ -51,8 +52,8 @@ class TabFollowing extends Component {
 
 	//Follow/Unfollow button
 	loadFollowers() {
-		var AccountId = this.props.ProfileUser.Username;
-		mApi.get("api", `user/following?Username=${AccountId}`).fail(e => {
+		var id = this.props.ProfileUser.accountId;
+		mApi.get("api", `user/${id}/followers`).fail(e => {
 			console.error(e);
 			this.setState({
 				followers: [],
@@ -61,7 +62,7 @@ class TabFollowing extends Component {
 		}).done(data => {
 			//window.location.reload();
 			this.setState({
-				followers: JSON.parse(data),
+				followers: data,
 				loaded: true
 			});
 		});

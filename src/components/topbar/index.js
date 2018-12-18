@@ -31,7 +31,7 @@ class Topbar extends Component {
     var path = this.props.location.pathname;
     var location = this.props.location;
 
-    var href_profile = "/p/" + user.Username;
+    var href_profile = "/p/" + user.username;
 
     return (
       <div id="topbar" className="container">
@@ -70,8 +70,8 @@ class Topbar extends Component {
                 <button onClick={this.search.bind(this)} className="btn btn-warning mr-3" type="submit" >Search</button>
               </form>
               <NavLink location={location} to={href_profile} className='profileItem'>
-                <ProfileIcon src={user.ProfilePicture} text="" />
-                {user.FirstName + " " + user.LastName}
+                <ProfileIcon src={user.profilePicture} text="" />
+                {user.firstName + " " + user.lastName}
               </NavLink>
               <div className="nav-item dropdown" style={{
                 whiteSpace: "nowrap"

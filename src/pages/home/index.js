@@ -33,7 +33,7 @@ class Home extends Component {
             </pre>
           </div>
         </div>
-        <UserDirectory />
+        <UserDirectory {...this.props}/>
         <BandDirectory />
       </div>
     );

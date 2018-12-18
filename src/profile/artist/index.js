@@ -19,6 +19,15 @@ import TabEvents from './TabEvents';
 
 import ArtistManagePage from "./ArtistManagePage";
 
+
+var tabs = [
+  { component: TabFeed, path: "feed", title: "Feed" },
+  { component: TabAbout, path: "about", title: "About" },
+  { component: TabMusic, path: "music", title: "Music" },
+  { component: TabLive, path: "live", title: "Live" },
+  { component: TabEvents, path: "events", title: "Events" }
+];
+
 class ArtistProfile extends Component {
   constructor(props) {
     super(props);
@@ -33,21 +42,10 @@ class ArtistProfile extends Component {
     var id = this.state.id;
     mApi.get("api", "artist/" + id).fail(e => {
       this.showError(e.statusText);
-    }).done(data => {
-
-      var user;
-      try {
-        user = JSON.parse(data);
-        if (!user || !user.Username)
-          throw new Error("API: Invalid MegaArtist response");
-      }
-      catch (e) {
-        this.showError(e.message)
-        return;
-      }
+    }).done(user => {
       this.setState({
         loaded: true,
-        user: user
+        ProfileUser: user
       });
     });
   }
@@ -58,9 +56,12 @@ class ArtistProfile extends Component {
     });
   }
   render() {
-    const { error, loaded, user } = this.state;
+    const { error, loaded, ProfileUser } = this.state;
+    var history = this.props.history;
 
-
+    var prefix = this.props.match.url;
+    if (prefix.substring(prefix.length - 1, prefix.length) != "/")
+      prefix += "/";
 
     if (!loaded) {
       return (<div className="container p-5">
@@ -77,43 +78,29 @@ class ArtistProfile extends Component {
       </div>);
     }
 
-    var isMe = this.props.MegaUser.AccountId == user.AccountId;
-
-    var tabs = [
-      { component: TabFeed, path: "feed", title: "Feed" },
-      { component: TabAbout, path: "about", title: "About" },
-      { component: TabMusic, path: "music", title: "Music" },
-      { component: TabLive, path: "live", title: "Live" },
-      { component: TabEvents, path: "events", title: "Events" }
-    ];
-
-    //console.log(this.props);
-
-    var history = this.props.history;
-
-
-    var prefix = this.props.match.url;
-    console.log(this.props);
+    var headerSrc = ProfileUser.headerPicture;
+    if (!headerSrc)
+      headerSrc = "/img/header_default.jpg";
+    var profilePictureSrc = ProfileUser.profilePicture;
+    if (!profilePictureSrc)
+      profilePictureSrc = "/img/profile_default.jpg";
 
     return (
       <div className="">
         <Switch>
-          <Route path={prefix + "/manage"}>
-            <ArtistManagePage ProfileUser={user} {...this.props} />
+          <Route path={prefix + "manage"}>
+            <ArtistManagePage ProfileUser={ProfileUser} {...this.props} />
           </Route>
           <Route>
             <div>
-
-              <ProfileHeader Me={isMe} ProfileUser={user} {...this.props}>
-                <Portrait Me={isMe} MegaUser={this.props.MegaUser} ProfileUser={user} />
-                <ProfileHeaderInfo Me={isMe} MegaUser={this.props.MegaUser} ProfileUser={user} {...this.props} />
+              <ProfileHeader src={headerSrc}>
+                <Portrait Editable={false} src={profilePictureSrc} {...this.props} />
+                <ProfileHeaderInfo history={this.props.history} Relationship={ProfileUser.relationship} ProfileUser={ProfileUser}/>
               </ProfileHeader>
-              <ProfileNavigationBar Tabs={tabs} Me={isMe} history={history} ProfileUser={user} path={this.props.location.pathname} {...this.props} />
+              <ProfileNavigationBar Prefix={prefix} Tabs={tabs} Me={false} history={history} ProfileUser={ProfileUser} path={this.props.location.pathname} {...this.props} />
             </div>
           </Route>
-
         </Switch>
-
       </div>
     );
   }

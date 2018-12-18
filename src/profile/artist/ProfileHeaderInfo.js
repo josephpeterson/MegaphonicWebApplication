@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Gear from "../gear.png";
 import MusicIcon from './no_music.png';
 import mApi from '../../services/MegaphonicAPI';
+import RelationshipButton from '../../components/Profile/RelationshipButton';
 
 const RelationshipStatuses = {
 	Blocked: -1,
@@ -13,105 +14,51 @@ const RelationshipStatuses = {
 
 
 class ProfileHeaderInfo extends Component {
-	constructor(props)
-	{
+	constructor(props) {
 		super(props);
+
+		var ProfileUser = props.ProfileUser;
 		this.state = {
-			RelationshipStatus: 0,
-			loaded: false
+			ProfileUser: ProfileUser,
+			Relationship: ProfileUser.relationship
 		}
 	}
-	componentDidMount()
-	{
-		var ArtistId = this.props.ProfileUser.ArtistId;
-		mApi.get("api",`artist/RelationshipStatus/${ArtistId}`).fail(e => {
-			console.error(e);
-		}).done(data => {
-			var relation = JSON.parse(data);
-			var status = relation.Status;
-
-			this.setState({
-				RelationshipStatus: status,
-				loaded: true,
-			});
-		});
+	componentDidMount() {
+		return;
 	}
 	render() {
-		if(!this.state.loaded)
-		{
-			return <></>;
-		}
-		var User = this.props.ProfileUser;
-		var Me = this.props.Me;
-
-		var href_edit = "/a/" + User.Username + "/manage";
-
-		var status = this.state.RelationshipStatus;
-
-		var btn_followTxt;
-		var btn_followCls;
-
-		console.log("todo status:",status);
-
-		var callback = this.toggleRelationship.bind(this);
-
-		console.log(status);
-		switch(status)
-		{
-			case RelationshipStatuses.Minimal:
-				btn_followTxt = "Unfollow";
-				btn_followCls = "btn-danger";
-				break;
-			case RelationshipStatuses.Owner:
-			case RelationshipStatuses.Member:
-				btn_followTxt = "Manage";
-				btn_followCls = "btn-warning";
-				callback = () => {
-					this.props.history.push(href_edit);
-				}
-				break;
-			default:
-				btn_followTxt = "Follow";
-				btn_followCls = "btn-success";
-		}
-
-		var relationshipBtn = <button onClick={callback} className={`btn ${btn_followCls} m-2`}>{btn_followTxt}</button>;	
+		const { ProfileUser, Relationship } = this.state;
 
 		var location;
-		
-		if(User.CityName)
-			location = User.CityName;
-		if(User.StateCode)
-			location = User.StateCode;
+		if (ProfileUser.cityName)
+			location = ProfileUser.cityName;
+		if (ProfileUser.stateCode)
+			location = ProfileUser.stateCode;
+		var biography = ProfileUser.biography;
 
-		var biography = User.Biography;
-
-
-		
 		return (
 			<div className='profileHeader artist'>
 				<div className="profileContent">
-				<h4>{User.Title}</h4>
-				<h6>{location}</h6>
-				<div className="row">
-				<p className="col-sm biography">{biography}</p>				
+					<h4>{ProfileUser.title}</h4>
+					<h6>{location}</h6>
+					<div className="row">
+						<p className="col-sm biography">{biography}</p>
+					</div>
 				</div>
-				</div>
-	
+
 				<div className="btn-grp">
-					{relationshipBtn}
-					<button className="btn btn-info m-2">Donate</button> 
+					<RelationshipButton Relationship={Relationship} ProfileUser={ProfileUser} {...this.props} />
+					<button className="btn btn-info m-2">Donate</button>
 				</div>
 			</div>
 		);
 	}
 
 	//Follow/Unfollow button
-	toggleRelationship()
-	{
+	toggleRelationship() {
 		console.log("asdas");
 		var ArtistId = this.props.ProfileUser.ArtistId;
-		mApi.post("api",`artist/follow/${ArtistId}`).fail(e => {
+		mApi.post("api", `artist/follow/${ArtistId}`).fail(e => {
 			console.error(e);
 		}).done(data => {
 

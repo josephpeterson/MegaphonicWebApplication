@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import mApi from '../../services/MegaphonicAPI';
-import FormErrors from "../../components/FormErrors";
+import FormErrors from "../FormErrors";
 import $ from 'jquery';
 
 class CreatePost extends Component {
@@ -24,9 +24,9 @@ class CreatePost extends Component {
 				className="btn btn-success">Create Post...</button>;
 		}
 		return (
-			<div className="row">
-				<div className="col-md-8 col-md-offset-2">
-					<h3>Create post</h3>
+			<div className="card row">
+				<h5 className="card-header">Create Post</h5>
+				<div className="card-body col-md-8 col-md-offset-2">
 					<FormErrors ref={this.errors} />
 					<form ref={this.form}>
 						<div className="form-group">
@@ -76,8 +76,8 @@ class CreatePost extends Component {
 		var LocationId = this.props.LocationId;
 		var LocationType = this.props.LocationType;
 		var form = $(this.form.current);
-		
-	
+
+
 		var data = {
 			PostLocation: {
 				LocationId: LocationId,
@@ -88,13 +88,16 @@ class CreatePost extends Component {
 			data[d.name] = d.value;
 		});
 		form.find(":input,button").prop("disabled", true);
-
-
-		console.log(data);
-
+		
 		mApi.post("api", "feed/create", data).fail(this.DisplayErrors.bind(this)).done(post => {
-			//console.log(post);
-			window.location.reload();
+			
+			this.setState({
+				expanded: false
+			});
+			this.props.onCreated({
+				Post: post,
+				MegaUser: User
+			});
 		});
 	}
 }

@@ -63,21 +63,34 @@ class UserDirectory extends Component {
 		}
 
 		//Parse the data
-		var records = JSON.parse(data);
+		var records = data;
 		return (
 			<div className='card m-3'>
 				<div className='card-body'>
 					<h3>User Directory</h3>
 					<p>Currently while search is being developed, you may access other peoples profiles by the links below:</p>
-					<div className="container">
-						{records.map((user, id) =>
-							<div key={id} className="row">
-								<a href={"/p/" + user.Username}>
-									{user.Username} ({user.FirstName + " " + user.LastName})
-				  </a>
-							</div>
-						)}
-					</div>
+					<table className="table table-striped table-hover">
+						<thead className="thead">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Username</th>
+								<th scope="col">Full Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							{records.map((user, id) =>
+								<tr className={user.accountId == this.props.MegaUser.accountId ? "table-success":""} onClick={() => {
+									this.props.history.push("/p/" + user.username);
+								}} key={id} style={{
+									cursor: "pointer"
+								}}>
+									<td>{user.accountId}</td>
+									<td>{user.username}</td>
+									<td>{user.firstName} {user.lastName}</td>
+								</tr>
+							)}
+						</tbody>
+					</table>
 				</div>
 			</div>
 		);

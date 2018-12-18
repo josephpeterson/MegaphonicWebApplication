@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import FeedPost from '../components/FeedPost';
-import CreatePost from '../components/CreatePost';
+import FeedPost from '../../components/FeedPosts/FeedPost';
+import CreatePost from '../../components/FeedPosts/CreatePost';
 import mApi from '../../services/MegaphonicAPI';
 import {PostLocationTypes} from '../../services/ApiMappers';
 import EmptyTab from '../components/EmptyTab';
@@ -22,26 +22,29 @@ class TabFeed extends Component {
 	}
 	loadPosts() {
 		var User = this.props.ProfileUser;
-
-		var Artist = isNaN(this.props.ProfileUser.AccountId);		
-		var PostLocationType = Artist ? PostLocationTypes.Artist:PostLocationTypes.Profile;
-		var PostLocationId = Artist ? User.ArtistId:User.AccountId;
-	
-		var url = `feed/v/${PostLocationType}/${PostLocationId}`;
-
+		var FeedId = User.postLocationId;
+		var url = `feed/${FeedId}`;
 		mApi.get("api",url).fail(e => {
 			console.error(e);
 			this.setState({
 				posts: [],
 				loaded: true
 			});
-		}).done(data => {
+		}).done(posts => {
 			//window.location.reload();
 			this.setState({
-				posts: JSON.parse(data),
+				posts: posts,
 				loaded: true
 			});
 		});
+	}
+	refresh()
+	{
+		this.loadPosts();
+	}
+	AddPost(post)
+	{
+		this.refresh();
 	}
 	render() {
 		if(!this.state.loaded)
@@ -50,26 +53,20 @@ class TabFeed extends Component {
 				<img className="" src="/img/loading.svg"/>
 			</div>;
 		}
-
-		var Me = this.props.Me;
 		var User = this.props.ProfileUser;
 		var posts = this.state.posts;
-
-
-		var Artist = isNaN(this.props.ProfileUser.AccountId);		
+		var Artist = isNaN(User.accountId);		
 		var PostLocationType = Artist ? PostLocationTypes.Artist:PostLocationTypes.Profile;
-		var PostLocationId = Artist ? User.ArtistId:User.AccountId;
+		var PostLocationId = Artist ? User.artistId:User.accountId;
+
 		return (<div className="container">
 			<div className="container-fluid">
-				{<CreatePost LocationType={PostLocationType} LocationId={PostLocationId} {...this.props}/>}
+				{<CreatePost LocationType={PostLocationType} LocationId={PostLocationId} onCreated={this.AddPost.bind(this)}/>}
 				{posts.length == 0 && <EmptyTab src={imgNothing}>No Posts Yet</EmptyTab>}
 				{posts.map((post,i) => {
-					var user = post.MegaUser;
-					var Title = post.Post.Title;
-					var Content = post.Post.Content;
-					var Timestamp = "";
-
-					return (<FeedPost key={i} ProfileUser={user} Title={Title} Content={Content} Timestamp={Timestamp} />)
+					var user = post.megaUser;
+					var post = post.post;
+					return (<FeedPost key={i} ProfileUser={user} Post={post} MegaUser={this.props.MegaUser}/>)
 				})}
 			</div>
 		</div>)
