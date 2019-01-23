@@ -99,9 +99,9 @@
 	line-height: 30px;
 }
 
-.ProfileCard
+.ProfileCard.card
 {
-
+	background-color:rgba(232,224,227,0.3);
 }
 .ProfileCard img
 {

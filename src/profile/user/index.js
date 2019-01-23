@@ -109,6 +109,7 @@ class MegaProfile extends Component {
           <Portrait Editable={Me} src={profilePictureSrc} {...this.props} />
           <ProfileHeaderInfo Me={false} MegaUser={this.props.MegaUser} ProfileUser={ProfileUser} {...this.props} />
         </ProfileHeader>
+        
         <ProfileNavigationBar Prefix={prefix} Tabs={tabs} Me={false} history={history} ProfileUser={ProfileUser} path={this.props.location.pathname} {...this.props} />
       </div>
     );

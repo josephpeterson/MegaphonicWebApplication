@@ -2,7 +2,7 @@
 // Joseph Peterson
 import React, { Component } from 'react';
 import "./main.css";
-import "./vendor/gapi/font1.css";
+import "./vendor/font1.css";
 //import "./vendor/bootstrap.css";
 import CreateStuff from "./js/grayscale";
 import AuthError from "./components/AuthError";
@@ -16,10 +16,6 @@ import RegisterSection from './components/RegisterSection';
 
 
 class LandingPage extends Component {
-  LandingPage() {
-    //this.handleLogin = this.handleLogin.bind(this);
-  }
-
   componentDidMount() {
     CreateStuff();
     this.props.history.replace("/");
@@ -27,35 +23,29 @@ class LandingPage extends Component {
   render() {
     var auth = this.props.auth;
     return (
-      <div>
-        <AuthError id="AuthErrorModal"/>
-        <TopBar handleLogin={auth.login.bind(auth)}/>
+      <div className="landing">
+        <AuthError id="AuthErrorModal" />
+        <TopBar handleLogin={auth.login.bind(auth)} />
         <header className="masthead">
           <div className="row h-100 align-items-center">
             <div className="mx-auto text-center">
               <h1 className="mx-auto my-0 text-uppercase">Megaphonic</h1>
               <h2 className="text-white-50 mx-auto mt-2 mb-5">Find your next favorite Milwaukee artist</h2>
             </div>
-            </div>
+          </div>
         </header>
+        <RegisterSection auth={auth} btn_login={auth.login.bind(auth)} />
+        <AboutSection />
+        <VenueSection />
+        <ContactSection />
+        <footer className="bg-black small text-center text-white-50">
+          <div className="container">
+            Copyright &copy; Megaphonic 2018
+          </div>
+        </footer>
+      </div>
+    );
+  }
+}
 
-
-        <RegisterSection btn_login={auth.login.bind(auth)}/>
-        <AboutSection/>
-        
-
-        <VenueSection/>
-        <ContactSection/>
-
-          <footer className="bg-black small text-center text-white-50">
-            <div className="container">
-              Copyright &copy; Megaphonic 2018
-  </div>
-          </footer>
-
-    </div>
-        );
-      }
-    }
-    
 export default LandingPage;

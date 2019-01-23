@@ -1,0 +1,13 @@
+.Homepage .feedNav.nav
+{
+	padding: 0px;
+}
+.Homepage .feedNav.nav a.nav-link.active
+{
+	background:none;
+}
+.Homepage .feedNav.nav a.nav-link
+{
+	padding: 0px;
+	margin:0px;
+}

@@ -11,9 +11,9 @@ body
 .container.megaContainer
 {
 	border:1px solid rgb(212, 212, 212);
-	background-color:white;
 	padding:0px;
 }
+
 .profileBadge
 {
 	position: absolute;
@@ -63,7 +63,6 @@ body
 }
 #topbar a:hover:not(.active)
 {
-	color:rgb(150,150,150);
 }
 #topbar input
 {
@@ -72,4 +71,13 @@ body
 #topbar button
 {
 	height:30px;
+}
+
+.feedNav.nav
+{
+	padding:10px;
+}
+.HomePage .col-sm-3
+{
+	padding:0px;
 }

@@ -65,8 +65,9 @@ class TabFeed extends Component {
 				{posts.length == 0 && <EmptyTab src={imgNothing}>No Posts Yet</EmptyTab>}
 				{posts.map((post,i) => {
 					var user = post.megaUser;
-					var post = post.post;
-					return (<FeedPost key={i} ProfileUser={user} Post={post} MegaUser={this.props.MegaUser}/>)
+					var p = post.post;
+					console.log(post);
+					return (<FeedPost key={i} ProfileUser={user} PostResponse={post} MegaUser={this.props.MegaUser}/>)
 				})}
 			</div>
 		</div>)

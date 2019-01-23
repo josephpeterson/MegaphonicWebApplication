@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { Route, Router, Switch, Redirect } from 'react-router-dom';
 
 //Components
-import Sidebar from './components/sidebar';
 import Topbar from './components/topbar';
 import Player from './components/player';
 import Watermark from './components/watermark';
@@ -17,7 +16,6 @@ import MyCalendar from './pages/calendar';
 import ExplorePage from './pages/explore';
 import CreateArtistForm from './create/artist';
 
-import BasicModal from './components/BasicModal';
 import mApi from './services/MegaphonicAPI';
 
 class App extends Component {
@@ -45,7 +43,7 @@ class App extends Component {
         props.MegaUser = user;
         props.auth = auth;
         return (
-          <div className="container megaContainer">
+          <div className="container">
             <Topbar {...props} />
             <Switch>
               <Route exact path="/" render={(props) => <Home MegaUser={user} auth={auth} {...props} />} />
@@ -53,13 +51,12 @@ class App extends Component {
               <Route path="/p/:id?" render={(props) => <MegaProfile auth={auth} MegaUser={user} {...props} />} />
               <Route path="/create/artist" render={(props) => <CreateArtistForm auth={auth} MegaUser={user} {...props} />} />
               <Route path="/me">
-					      <Redirect to={"/p/" + user.Username}/>
+					      <Redirect to={"/p/" + user.username}/>
               </Route>
               <Route path="/calendar" render={(props) => <MyCalendar auth={auth} {...props} />} />
               <Route path="/explore/:q?" render={(props) => <ExplorePage auth={auth} {...props} />} />
               <Route render={(props) => <ErrorNotFound {...props}/>} />
             </Switch>
-              <BasicModal {...modal}/>
             <Watermark/>
           </div>
         );

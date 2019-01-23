@@ -14,6 +14,15 @@ class TabEdit extends Component {
 		var history = this.props.history;
 		var user = this.props.MegaUser;
 
+		var FirstName = user.firstName;
+		var LastName = user.lastName;
+		var Email = user.email;
+		var Username = user.username;
+		var StreetAddress = user.streetName;
+		var CityName = user.cityName;
+		var StateCode = user.stateCode;
+		var ZipCode = user.zipCode;
+
 		return (
 			<div className="container col-sm">
 				<h3>Edit Profile</h3>
@@ -31,16 +40,16 @@ class TabEdit extends Component {
 						<label htmlFor="exampleInputPassword1">Name</label>
 						<div className="form-row">
 							<div className="col">
-								<input type="text" className="form-control" placeholder="First name" name="FirstName" defaultValue={user.FirstName} />
+								<input type="text" className="form-control" placeholder="First name" name="FirstName" defaultValue={FirstName} />
 							</div>
 							<div className="col">
-								<input type="text" className="form-control" placeholder="Last name" name="LastName" defaultValue={user.LastName} />
+								<input type="text" className="form-control" placeholder="Last name" name="LastName" defaultValue={LastName} />
 							</div>
 						</div>
 					</div>
 					<div className="form-group">
 						<label htmlFor="exampleInputPassword1">Email</label>
-						<input type="text" className="form-control" placeholder="Email Address" name="Email" defaultValue={user.Email} />
+						<input type="text" className="form-control" placeholder="Email Address" name="Email" defaultValue={Email} />
 					</div>
 					<div className="form-group">
 						<label htmlFor="exampleInputPassword1">Password</label>
@@ -49,16 +58,16 @@ class TabEdit extends Component {
 					</div>
 					<div className="form-group">
 						<label htmlFor="inputAddress">Address</label>
-						<input type="text" className="form-control" placeholder="Street Address" name="StreetAddress" defaultValue={user.StreetAddress} />
+						<input type="text" className="form-control" placeholder="Street Address" name="StreetAddress" defaultValue={StreetAddress} />
 					</div>
 					<div className="form-row">
 						<div className="form-group col-md-6">
 							<label htmlFor="inputCity">City</label>
-							<input type="text" className="form-control" placeholder="City" name="CityName" defaultValue={user.CityName} />
+							<input type="text" className="form-control" placeholder="City" name="CityName" defaultValue={CityName} />
 						</div>
 						<div className="form-group col-md-4">
 							<label htmlFor="inputState">State</label>
-							<select className="form-control" name="StateCode" defaultValue={user.StateCode}>
+							<select className="form-control" name="StateCode" defaultValue={StateCode}>
 								<option value="" defaultValue>State</option>
 								<option value="AL">Alabama</option>
 								<option value="AK">Alaska</option>
@@ -115,7 +124,7 @@ class TabEdit extends Component {
 						</div>
 						<div className="form-group col-md-2">
 							<label htmlFor="inputZip">Zip</label>
-							<input type="text" pattern="[0-9]{5}" className="form-control" name="ZipCode" defaultValue={user.ZipCode} />
+							<input type="text" pattern="[0-9]{5}" className="form-control" name="ZipCode" defaultValue={ZipCode} />
 						</div>
 					</div>
 

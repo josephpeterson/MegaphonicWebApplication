@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import $ from 'jquery';
 import mApi from '../../services/MegaphonicAPI';
-import ConfirmModal from '../Modal/Confirm';
 import FormErrors from '../FormErrors';
-import PostHeader from "./PostHeader";
+import RemovePostModal from './modal/RemovePost';
 
-class FeedPost extends Component {
+class PostHeader extends Component {
 	constructor(props) {
 		super(props);
 		this.dropdownMenu = React.createRef();
@@ -15,6 +14,8 @@ class FeedPost extends Component {
 		this.errors = React.createRef();
 
 		var res = props.PostResponse;
+
+	
 
 		this.state = {
 			editing: false,
@@ -92,20 +93,15 @@ class FeedPost extends Component {
 		const { confirmDelete, editing, post, author, permission } = this.state;
 		const { ProfileUser, Permission } = this.props;
 
-		var Title = post.title;
-		var Content = post.content;
+		console.log("Test this:",this.state.permission);
+		//var Title = post.title;
+		var Content = this.props.children;
 		var FullName = ProfileUser.firstName + " " + ProfileUser.lastName;
 		var href = "/p/" + ProfileUser.username;
-
+		
+		var decline = () => { this.setState({ confirmDelete: false }) };		
 
 		if (this.state.removed) return <></>;
-
-		//Remove post modal
-		var decline = () => { this.setState({ confirmDelete: false }) };
-		var accept = this.DeletePost.bind(this);
-		var title = "Remove Post";
-		var body = "Are you sure you want to remove this post? Once removed, this post will be gone forever. We cannot undo this action.";
-		var removeModal = <ConfirmModal onAccept={accept} onDecline={decline} Title={title} Body={body} />;
 
 		var PostOptions = (
 			<div className="dropdown float-right" style={{
@@ -117,37 +113,19 @@ class FeedPost extends Component {
 				<div ref={this.dropdownMenu} className="dropdown-menu-right dropdown-menu" aria-labelledby="navbarDropdown">
 					{permission.modifiable && <div className="dropdown-item" href="#" onClick={this.ToggleModify.bind(this)}>Modify</div>}
 					{permission.removable && <div className="dropdown-item" href="#" onClick={this.PromptDelete.bind(this)}>Remove</div>}
-					{confirmDelete && removeModal}
+					{confirmDelete && <RemovePostModal onDecline={decline}/>}
 				</div>
 			</div>);
 
 		var Editable = permission.removable || permission.modifiable;
 		return (
-			<div className="card m-4 FeedPost">
-				<PostHeader {...this.props}/>
-				<div className="card-body">
-					<FormErrors ref={this.errors} />
-					<Link to={href} className="Icon" style={{
-						backgroundImage: ProfileUser.profilePicture ? `url('${ProfileUser.profilePicture}')` : ""
-					}}>
-
-					</Link>
-					{editing && <>
-						<small className="text-mute">Post Title</small>
-						<input className="form-control" ref={this.newTitle} type="text" defaultValue={Title} />
-						<small className="text-mute">Post Content</small>
-						<textarea className="md-textarea form-control" ref={this.newContent} defaultValue={Content}></textarea>
-						<button onClick={this.EditPost.bind(this)} className="btn btn-success m-2">Save Changes</button>
-						<button onClick={this.ToggleModify.bind(this)} className="btn btn-secondary m-2">Cancel</button>
-					</>}
-					{!editing && <>
-						<p className="">{Content}</p>
-						<a href="#" className="btn btn-default m-2">Like</a>
-						<a href="#" className="btn btn-default m-2">Share</a>
-					</>}
-				</div>
-			</div>
+			<h6 className="card-header Title">
+				<Link to={href}>
+					<small className='text-secondary'>{FullName}</small>
+				</Link>
+				{Editable && PostOptions}
+			</h6>
 		)
 	}
 }
-export default FeedPost;
+export default PostHeader;

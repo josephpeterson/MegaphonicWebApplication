@@ -35,7 +35,7 @@ class TabFollowing extends Component {
 		}
 
 		return (
-			<div className="">
+			<div className="row">
 				{followers.map((follower, id) => {
 					var href = "/a/" + follower.username;
 					var User = follower.artist;
@@ -43,7 +43,9 @@ class TabFollowing extends Component {
 					var MyRelationship = follower._Relationship;
 					console.log(follower);
 					return (
-						<ProfileCard key={id} history={history} ProfileUser={User} Relationship={MyRelationship}/>
+						<div class="col-sm-6">
+							<ProfileCard key={id} history={history} ProfileUser={User} Relationship={MyRelationship}/>
+						</div>
 					)
 				}
 				)}

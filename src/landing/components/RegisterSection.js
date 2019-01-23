@@ -96,8 +96,7 @@ class RegisterForm extends Component {
 
 			<hr className="colorgraph" />
 			<div className="row">
-				<div className="col-xs-12 col-md-6"><input type="submit" name="button" value="signup" className="btn btn-primary btn-block btn-lg" tabIndex="7" /></div>
-				<div className="col-xs-12 col-md-6"><a onClick={this.props.btn_login} className="btn btn-success btn-block btn-lg">Login</a></div>
+				<div className="col-xs-12 col-md-6"><button type="submit" value="signup" name="button" className="btn btn-primary btn-block btn-lg" tabIndex="7">Signup</button></div>
 			</div>
 		</form>
 		);

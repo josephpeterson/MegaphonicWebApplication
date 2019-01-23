@@ -35,7 +35,7 @@ class ProfileNavigationBar extends Component {
 					)}
 				</ul>
 			</div>
-			<div className="container p-3 mt-3">
+			<div className="container p-3">
 				<Switch>
 					{tabs.map((tab, i) => {
 						if ((!Artist && tab.artistOnly))

@@ -1,34 +1,40 @@
 // Copyright (c) Megaphonic LLC 2018. All rights reserved.
 // Joseph Peterson
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
 import { Route, Router, Switch, Redirect } from 'react-router-dom';
 import "./main.css";
 
 class BasicModal extends Component {
-	constructor(props)
-	{
+	constructor(props) {
 		super(props);
+		this.modal = document.createElement("div");
+		this.root = props.Root ? props.Root:document.getElementById("modalRoot");
 		this.state = {
-			title: props.title,
-			body: props.body,
-			show: props.show
+			title: props.Title,
+			body: props.Body
 		}
+	}
+	componentDidMount() {
+		this.root
+		.appendChild(this.modal);
+	}
+	componentWillUnmount() {
+		this.root
+		.removeChild(this.modal);
+	}
+	CloseModal(event)
+	{
+		this.props.onClose(event);
 	}
 	render() {
 
-		const {show, title, body} = this.state;
+		const {title, body } = this.state;
 
-		var close = function() {
-			this.setState({
-				show: false
-			});
-		}.bind(this);
-
-		if(!show)
-			return <></>;
-
-		return (
-			<div className="modal fade in show pt-5" style={{ display: show ? "block" : "none" }} id="megaModal" role="dialog">
+		var close = this.CloseModal.bind(this);
+		return ReactDOM.createPortal(
+			<div className="modal fade in show pt-5" style={{ display: "block" }} id="megaModal" role="dialog">
 				<div className="modal-dialog">
 					<div className="modal-content">
 						<div className="modal-header">
@@ -46,8 +52,7 @@ class BasicModal extends Component {
 					</div>
 
 				</div>
-			</div>
-		)
+			</div>, this.modal);
 	}
 }
 export default BasicModal;
